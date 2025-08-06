@@ -1,0 +1,110 @@
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.gerenciadobanco;
+
+import java.util.Scanner;
+
+class ContaBancaria {
+    private String nome;
+    private String sobrenome;
+    private String cpf;
+    private double saldo;
+    
+    public ContaBancaria (String nome, String sobrenome, String cpf) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;
+        this.saldo = 00.00;
+                
+    }            
+    
+    public double consultarSaldo(){
+        return saldo; 
+    }
+    
+    public void depositar (double valor){
+        saldo += valor;
+        System.out.println("Deposito de R$ + " + valor + " realizado com sucesso");
+    }
+          
+    public void sacar (double valor){
+        if (saldo >=valor){
+            saldo-=valor;
+            System.out.println("Saque de R$" + valor + " realizado com sucesso");
+        } else {
+            System.out.println("Saldo insuficiente para realizar o saque");
+        }
+        
+    }   
+  
+    public void exibirMenu(){
+        Scanner scanner = new Scanner (System.in);
+        int opcao;
+        
+        do {
+            System.out.println("\n----Responda----");
+            System.out.println("1.Saldo em conta");
+            System.out.println("2.Realizar Deposito");
+            System.out.println("3.Realizar Saque");
+            System.out.println("4.Encerrar");
+            System.out.println("Qual opcao deseja?");
+            opcao = scanner.nextInt();
+            
+            switch(opcao){
+                case 1:
+                 System.out.println("Saldo: R$" + consultarSaldo());    
+                 break;
+                case 2:
+                 System.out.println("Digite o valor do Deposito:");
+                 double valorDeposito = scanner.nextDouble();
+                 depositar(valorDeposito);
+                 break;
+                case 3:
+                 System.out.println("Digite o valor do Saque:");
+                 double valorSaque = scanner.nextDouble();
+                 sacar(valorSaque);
+                 break;
+                  
+                case 4:
+                 System.out.println("Encerrado");
+                 break;
+                default:
+                 System.out.println("Opcao inválida");
+                         
+            }
+               
+        } while (opcao!=4);
+        
+       scanner.close();     
+            
+        
+    }
+   
+}
+
+
+public class GerenciadoBanco {
+    
+    public static void main(String[] args){
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("Bem-vindo(a) ao seu Banco");
+        System.out.println("Digite seu primeiro nome:");
+        String nome = scanner.nextLine();
+        System.out.println("Agora seu sobrenome:");
+        String sobrenome = scanner.nextLine();
+        System.out.println("Digite seu CPF:");
+        String CPF = scanner.nextLine();
+        
+        ContaBancaria conta = new ContaBancaria(nome,sobrenome,CPF);
+        
+        conta.exibirMenu();
+        
+        System.out.println("Obrigado pela preferencia");
+        scanner.close();        
+
+    } 
+    
+}
+    
+
